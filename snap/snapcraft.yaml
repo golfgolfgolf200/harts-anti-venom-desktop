@@ -34,9 +34,9 @@ parts:
   harts-anti-venom:
     plugin: nil
     source: .
+    build-snaps:
+      - rustup
     build-packages:
-      - cargo
-      - rustc
       - libwebkit2gtk-4.1-dev
       - build-essential
       - curl
@@ -51,5 +51,7 @@ parts:
       - libwebkit2gtk-4.1-0
       - libayatana-appindicator3-1
     override-build: |
+      env -u LD_LIBRARY_PATH rustup default stable
+      export PATH="$HOME/.rustup/toolchains/$(env -u LD_LIBRARY_PATH rustup show active-toolchain | awk '{print $1}')/bin:$PATH"
       cargo build --release --manifest-path src-tauri/Cargo.toml
       install -Dm755 src-tauri/target/release/harts-anti-venom "$CRAFT_PART_INSTALL/bin/harts-anti-venom"
