@@ -1,0 +1,55 @@
+name: harts-anti-venom
+title: Hart's Anti-Venom
+version: '1.0.0'
+license: Apache-2.0
+summary: Zero-telemetry client-side defense against EVM address poisoning.
+website: https://hartsantivenom.com
+source-code: https://github.com/golfgolfgolf200/harts-anti-venom-desktop
+issues: https://github.com/golfgolfgolf200/harts-anti-venom-desktop/issues
+contact: mailto:x401.tech@gmail.com
+description: |
+  Hart's Anti-Venom is an open-source, client-side Web3 security application
+  engineered to protect Ethereum and EVM users against address poisoning attacks,
+  deceptive zero-value ERC-20 transfer log injection, and vanity collision traps.
+
+  ### Key Capabilities
+  * **Zero Telemetry:** Runs 100% locally inside strict AppArmor/seccomp confinement with zero network plugs.
+  * **Middle-Hex Inversion & Visual Hashing:** Dims spoofable outer boundaries and renders deterministic 5-block Keccak-256 color hashes.
+  * **Zero External Scripts:** Pure local Rust/WebKit execution with strict CSP (`default-src 'self'`).
+
+grade: stable
+confinement: strict
+base: core24
+
+apps:
+  harts-anti-venom:
+    command: bin/harts-anti-venom
+    extensions: [gnome]
+    plugs:
+      - desktop
+      - wayland
+      - x11
+
+parts:
+  harts-anti-venom:
+    plugin: nil
+    source: .
+    build-packages:
+      - cargo
+      - rustc
+      - libwebkit2gtk-4.1-dev
+      - build-essential
+      - curl
+      - wget
+      - file
+      - libxdo-dev
+      - libssl-dev
+      - libayatana-appindicator3-dev
+      - librsvg2-dev
+      - pkg-config
+    stage-packages:
+      - libwebkit2gtk-4.1-0
+      - libayatana-appindicator3-1
+    override-build: |
+      cargo build --release --manifest-path src-tauri/Cargo.toml
+      install -Dm755 src-tauri/target/release/harts-anti-venom "$CRAFT_PART_INSTALL/bin/harts-anti-venom"
