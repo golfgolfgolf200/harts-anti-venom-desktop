@@ -13,10 +13,9 @@ description: |
   deceptive zero-value ERC-20 transfer log injection, and vanity collision traps.
 
   ### Key Capabilities
-  * **Zero Telemetry:** Runs 100% locally inside strict AppArmor/seccomp confinement.
+  * **Zero Telemetry:** Runs 100% locally inside strict AppArmor/seccomp confinement with zero network plugs.
   * **Middle-Hex Inversion & Visual Hashing:** Dims spoofable outer boundaries and renders deterministic 5-block Keccak-256 color hashes.
-  * **Inbound RPC Dust Sanitizer:** Strips deceptive zero-value transfers before rendering.
-  * **Encrypted Local Keystore:** Safeguards whitelisted counterparties using AES-256-GCM backed by Linux Secret Service.
+  * **Zero External Scripts:** Pure local Rust/WebKit execution with strict CSP (`default-src 'self'`).
 
 grade: stable
 confinement: strict
@@ -27,11 +26,9 @@ apps:
     command: bin/harts-anti-venom
     extensions: [gnome]
     plugs:
-      - network
-      - network-bind
       - desktop
       - wayland
-      - password-manager-service
+      - x11
 
 parts:
   harts-anti-venom:
