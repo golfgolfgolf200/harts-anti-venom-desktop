@@ -6,7 +6,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/golfgolfgolf2000/harts-anti-venom-desktop.git"
+    "url": "https://github.com/golfgolfgolf200/harts-anti-venom-desktop.git"
   },
   "scripts": {
     "tauri": "tauri"

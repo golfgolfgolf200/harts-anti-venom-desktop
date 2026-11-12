@@ -4,8 +4,8 @@ version: '1.0.0'
 license: Apache-2.0
 summary: Zero-telemetry client-side defense against EVM address poisoning.
 website: https://hartsantivenom.com
-source-code: https://github.com/golfgolfgolf2000/harts-anti-venom-desktop
-issues: https://github.com/golfgolfgolf2000/harts-anti-venom-desktop/issues
+source-code: https://github.com/golfgolfgolf200/harts-anti-venom-desktop
+issues: https://github.com/golfgolfgolf200/harts-anti-venom-desktop/issues
 contact: mailto:x401.tech@gmail.com
 description: |
   Hart's Anti-Venom is an open-source, client-side Web3 security application
