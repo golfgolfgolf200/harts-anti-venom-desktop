@@ -42,7 +42,7 @@ parts:
     after: [rust-deps]
     plugin: rust
     source: .
-    rust-path: src-tauri
+    rust-path: [src-tauri]
     build-packages:
       - libwebkit2gtk-4.1-dev
       - build-essential
