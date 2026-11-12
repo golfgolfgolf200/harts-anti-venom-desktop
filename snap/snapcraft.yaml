@@ -31,9 +31,18 @@ apps:
       - x11
 
 parts:
+  rust-deps:
+    plugin: nil
+    build-snaps:
+      - rustup
+    override-build: |
+      rustup default stable
+
   harts-anti-venom:
+    after: [rust-deps]
     plugin: rust
-    source: src-tauri
+    source: .
+    rust-path: src-tauri
     build-packages:
       - libwebkit2gtk-4.1-dev
       - build-essential
