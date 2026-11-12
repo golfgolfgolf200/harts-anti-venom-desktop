@@ -31,18 +31,9 @@ apps:
       - x11
 
 parts:
-  rust-deps:
-    plugin: nil
-    build-snaps:
-      - rustup
-    override-build: |
-      rustup default stable
-
   harts-anti-venom:
-    after: [rust-deps]
-    plugin: rust
+    plugin: nil
     source: .
-    rust-path: [src-tauri]
     build-packages:
       - libwebkit2gtk-4.1-dev
       - build-essential
@@ -57,3 +48,6 @@ parts:
     stage-packages:
       - libwebkit2gtk-4.1-0
       - libayatana-appindicator3-1
+    override-build: |
+      cargo build --release --manifest-path src-tauri/Cargo.toml
+      install -Dm755 src-tauri/target/release/harts-anti-venom "$CRAFT_PART_INSTALL/bin/harts-anti-venom"
