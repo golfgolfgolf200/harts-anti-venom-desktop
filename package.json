@@ -1,0 +1,17 @@
+{
+  "name": "harts-anti-venom-desktop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Zero-telemetry client-side desktop guard against EVM address poisoning.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/golfgolfgolf2000/harts-anti-venom-desktop.git"
+  },
+  "scripts": {
+    "tauri": "tauri"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.0.0"
+  }
+}

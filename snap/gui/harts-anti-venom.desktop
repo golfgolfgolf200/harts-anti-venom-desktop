@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Hart's Anti-Venom
+Comment=Zero-telemetry client-side defense against EVM address poisoning
+Keywords=ethereum;evm;web3;crypto;security;wallet;anti-poisoning;address;privacy;zero-telemetry;
+Exec=harts-anti-venom
+Icon=${SNAP}/meta/gui/icon.png
+Terminal=false
+Type=Application
+Categories=Security;Network;Utility;
+StartupWMClass=harts-anti-venom

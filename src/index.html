@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hart's Anti-Venom Guard</title>
+    <style>
+      body {
+        margin: 0;
+        background: #090a0f;
+        color: #f3f4f6;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
+        padding: 28px;
+      }
+      .badge {
+        display: inline-block;
+        background: rgba(34, 197, 94, 0.15);
+        color: #22c55e;
+        border: 1px solid rgba(34, 197, 94, 0.4);
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+      h1 { font-size: 22px; margin: 14px 0 6px 0; }
+      p.sub { color: #9ca3af; font-size: 13px; margin: 0 0 20px 0; }
+      .card {
+        background: #11141a;
+        border: 1px solid #1f2937;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 16px;
+      }
+      input {
+        width: 100%;
+        box-sizing: border-box;
+        background: #050608;
+        border: 1px solid #374151;
+        border-radius: 6px;
+        padding: 12px;
+        color: #fff;
+        font-family: monospace;
+        font-size: 14px;
+        outline: none;
+      }
+      input:focus { border-color: #22c55e; }
+      .result {
+        margin-top: 16px;
+        padding: 14px;
+        background: #050608;
+        border-radius: 8px;
+        border: 1px solid #1f2937;
+        font-size: 15px;
+        display: none;
+        align-items: center;
+        gap: 10px;
+      }
+      .palette { display: inline-flex; gap: 3px; }
+      .block { width: 6px; height: 18px; border-radius: 2px; }
+      .dim { opacity: 0.45; color: #9ca3af; }
+      .highlight { color: #22c55e; font-weight: 700; }
+    </style>
+  </head>
+  <body>
+    <span class="badge">Strict Confinement • Zero Telemetry</span>
+    <h1>Hart's Anti-Venom Desktop Guard</h1>
+    <p class="sub">5-Layer EVM Address Poisoning &amp; Middle-Hex Verification Engine</p>
+
+    <div class="card">
+      <label style="display:block;font-size:12px;color:#9ca3af;margin-bottom:8px;">
+        Paste EVM Counterparty Address for Middle-Hex &amp; Keccak Visual Hash Verification:
+      </label>
+      <input type="text" id="addrInput" placeholder="0x..." autocomplete="off" />
+      <div class="result" id="resultBox"></div>
+    </div>
+
+    <script>
+      const input = document.getElementById('addrInput');
+      const resultBox = document.getElementById('resultBox');
+
+      input.addEventListener('input', async () => {
+        const val = input.value.trim();
+        if (!val) {
+          resultBox.style.display = 'none';
+          return;
+        }
+        if (window.__TAURI__) {
+          const res = await window.__TAURI__.core.invoke('inspect_address', { target: val });
+          resultBox.textContent = '';
+          resultBox.style.display = 'flex';
+          if (!res.is_valid_format) {
+            const err = document.createElement('span');
+            err.style.color = '#ef4444';
+            err.textContent = res.threat_flag || 'Invalid address';
+            resultBox.appendChild(err);
+            return;
+          }
+          const palette = document.createElement('span');
+          palette.className = 'palette';
+          res.color_blocks.forEach((hex) => {
+            const b = document.createElement('span');
+            b.className = 'block';
+            b.style.backgroundColor = hex;
+            palette.appendChild(b);
+          });
+
+          const textWrap = document.createElement('span');
+          const pre = document.createElement('span');
+          pre.className = 'dim';
+          pre.textContent = res.prefix;
+
+          const mid = document.createElement('span');
+          mid.className = 'highlight';
+          mid.textContent = res.middle_segment;
+
+          const suf = document.createElement('span');
+          suf.className = 'dim';
+          suf.textContent = res.suffix;
+
+          textWrap.append(pre, document.createTextNode('...'), mid, document.createTextNode('...'), suf);
+          resultBox.append(palette, textWrap);
+        }
+      });
+    </script>
+  </body>
+</html>

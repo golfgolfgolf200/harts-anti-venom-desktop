@@ -1,0 +1,15 @@
+# Rust / Tauri build artifacts
+/src-tauri/target/
+/dist/
+node_modules/
+
+# Snap local build artifacts
+*.snap
+parts/
+prime/
+stage/
+
+# OS & editor files
+.DS_Store
+*.swp
+.env

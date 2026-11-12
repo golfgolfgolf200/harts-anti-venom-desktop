@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "harts-anti-venom",
+  "version": "1.0.0",
+  "identifier": "com.hartsantivenom.desktop",
+  "build": {
+    "frontendDist": "../src"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Hart's Anti-Venom Guard",
+        "width": 840,
+        "height": 620,
+        "resizable": true,
+        "decorations": true
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; style-src 'self' 'unsafe-inline'"
+    }
+  }
+}
